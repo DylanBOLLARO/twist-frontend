@@ -76,6 +76,10 @@ import { useEffect, useState } from 'react'
 export const description =
     'A product edit page. The product edit page has a form to edit the product details, stock, product category, product status, and product images. The product edit page has a sidebar navigation and a main content area. The main content area has a form to edit the product details, stock, product category, product status, and product images. The sidebar navigation has links to product details, stock, product category, product status, and product images.'
 
+const imageLoader = ({ src, width, quality }: any) => {
+    return `${src}?w=${width}&q=${quality || 75}`
+}
+
 export function Dashboard() {
     const [fetchData, setFetchData] = useState([])
 
@@ -289,6 +293,7 @@ export function Dashboard() {
                                 className="overflow-hidden rounded-full"
                             >
                                 <Image
+                                    loader={imageLoader}
                                     src="/placeholder-user.jpg"
                                     width={36}
                                     height={36}
@@ -659,9 +664,7 @@ export function Dashboard() {
                                             {fetchData?.map((data: any) => {
                                                 return (
                                                     <Image
-                                                        quality={25}
-                                                        placeholder="empty"
-                                                        priority
+                                                        loader={imageLoader}
                                                         key={`image_${data?.slug}`}
                                                         alt={data?.title}
                                                         className="aspect-square w-full rounded-md object-cover"
@@ -675,6 +678,7 @@ export function Dashboard() {
                                             <div className="grid grid-cols-3 gap-2">
                                                 <button>
                                                     <Image
+                                                        loader={imageLoader}
                                                         alt="Product image"
                                                         className="aspect-square w-full rounded-md object-cover"
                                                         height="84"
@@ -684,6 +688,7 @@ export function Dashboard() {
                                                 </button>
                                                 <button>
                                                     <Image
+                                                        loader={imageLoader}
                                                         alt="Product image"
                                                         className="aspect-square w-full rounded-md object-cover"
                                                         height="84"

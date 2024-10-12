@@ -8,3 +8,9 @@ services:
     restart: always
     ports:
       - 43000:43000
+    networks:
+      - nginx_default
+networks:
+  nginx_default:
+    name: nginx_default
+    external: true
