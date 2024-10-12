@@ -1,0 +1,10 @@
+services:
+  twist-frontend:
+    container_name: twist-frontend
+    build:
+      context: .
+      args:
+        NEXT_PUBLIC_API: ${NEXT_PUBLIC_API}
+    restart: always
+    ports:
+      - 43000:43000

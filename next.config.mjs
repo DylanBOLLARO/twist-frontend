@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    output: 'standalone',
     images: {
         remotePatterns: [
             {
@@ -10,6 +11,19 @@ const nextConfig = {
                 search: '',
             },
         ],
+    },
+    async headers() {
+        return [
+            {
+                source: '/:path*{/}?',
+                headers: [
+                    {
+                        key: 'X-Accel-Buffering',
+                        value: 'no',
+                    },
+                ],
+            },
+        ]
     },
 }
 

@@ -80,8 +80,9 @@ export function Dashboard() {
     const [fetchData, setFetchData] = useState([])
 
     async function getUser() {
+        const url = process.env.NEXT_PUBLIC_API
         try {
-            const response = await axios.get(process.env.NEXT_PUBLIC_API)
+            const response = await axios.get(url ?? '')
             setFetchData(response.data.results)
         } catch (error) {
             console.error(error)
