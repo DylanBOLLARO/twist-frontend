@@ -3,8 +3,8 @@
 const isProd = process.env.NODE_ENV === 'production'
 
 const nextConfig = {
-    basePath: isProd ? '/twist' : '',
-    output: isProd ? 'standalone' : null,
+    basePath: isProd ? '/twist' : undefined,
+    output: isProd ? 'standalone' : undefined,
 
     images: {
         remotePatterns: [
