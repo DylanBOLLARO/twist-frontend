@@ -32,7 +32,9 @@ export default function RootLayout({
             >
                 <Providers>
                     <Header />
-                    {children}
+                    <div className="flex w-full flex-col">
+                        <div className="max-w-7xl mx-auto pt-5">{children}</div>
+                    </div>
                 </Providers>
             </body>
         </html>

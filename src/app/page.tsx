@@ -14,7 +14,7 @@ export default function Home() {
         const url = process.env.NEXT_PUBLIC_API + '/home-details'
         try {
             const response = await axios.get(url ?? '')
-            setFetchData(response.data)
+            setFetchData(response?.data?.results)
         } catch (error) {
             console.error(error)
         }
@@ -25,35 +25,29 @@ export default function Home() {
     }, [])
 
     return (
-        <div className="flex min-h-screen w-full flex-col bg-muted/40 items-center">
-            <div className="py-3 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-2">
-                {fetchData?.map((data: any) => {
-                    return (
-                        <Link
-                            href={`/home-details/${data?.slug}`}
-                            key={data?.slug}
-                        >
-                            <Card className="max-w-52 min-h-full hover:scale-105 duration-75 p-0">
-                                <div className="p-3 flex flex-col items-center">
-                                    <Image
-                                        loader={imageLoader}
-                                        key={`image_${data?.slug}`}
-                                        src={data.images[0]}
-                                        alt={data.title}
-                                        width={160}
-                                        height={160}
-                                        priority
-                                        className={
-                                            'object-cover aspect-square rounded'
-                                        }
-                                    />
-                                    <p className="px-3">{data.title}</p>
-                                </div>
-                            </Card>
-                        </Link>
-                    )
-                })}
-            </div>
+        <div className="py-3 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-2">
+            {fetchData?.map((data: any) => {
+                return (
+                    <Link href={`/home-details/${data?.slug}`} key={data?.slug}>
+                        <Card className="max-w-52 min-h-full hover:scale-105 duration-75 p-0">
+                            <div className="p-3 flex flex-col items-center">
+                                <Image
+                                    loader={imageLoader}
+                                    key={`image_${data?.slug}`}
+                                    src={data.images[0]}
+                                    alt={data.title}
+                                    width={160}
+                                    height={160}
+                                    className={
+                                        'object-cover aspect-square rounded'
+                                    }
+                                />
+                                <p className="px-3">{data.title}</p>
+                            </div>
+                        </Card>
+                    </Link>
+                )
+            })}
         </div>
     )
 }
