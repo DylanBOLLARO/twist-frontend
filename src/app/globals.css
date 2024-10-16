@@ -12,6 +12,7 @@ body {
     }
 }
 
+
 @layer base {
     :root {
         --background: 220 21% 16%;
@@ -34,12 +35,13 @@ body {
         --destructive-foreground: 0 0% 100%;
         --ring: 40 100% 70%;
         --radius: 0.5rem;
-        --chart-1: 12 76% 61%;
-        --chart-2: 173 58% 39%;
-        --chart-3: 197 37% 24%;
-        --chart-4: 43 74% 66%;
-        --chart-5: 27 87% 67%;
+        --chart-1: 220 70% 50%;
+        --chart-2: 160 60% 45%;
+        --chart-3: 30 80% 55%;
+        --chart-4: 280 65% 60%;
+        --chart-5: 340 75% 55%;
     }
+
     .dark {
         --background: 220 21% 16%;
         --foreground: 60 12% 95%;
@@ -60,19 +62,17 @@ body {
         --destructive: 8 85% 51%;
         --destructive-foreground: 0 0% 100%;
         --ring: 40 100% 70%;
-        --chart-1: 220 70% 50%;
-        --chart-2: 160 60% 45%;
-        --chart-3: 30 80% 55%;
-        --chart-4: 280 65% 60%;
-        --chart-5: 340 75% 55%;
     }
 }
+
+
 
 @layer base {
     * {
         @apply border-border;
     }
+
     body {
-        @apply text-foreground  bg-muted;
+        @apply text-foreground bg-background;
     }
 }

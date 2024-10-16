@@ -59,9 +59,9 @@ export default function Page({ params }: { params: { idOrSlug: string } }) {
                 </h2>
 
                 <div className="flex flex-row gap-3">
-                    <Button size={'lg'}>Partager</Button>
+                    <Button size={'lg'}>Share</Button>
                     <Button size={'lg'} variant={'outline'}>
-                        Enregistrer
+                        Save
                     </Button>
                 </div>
             </div>
@@ -101,19 +101,18 @@ export default function Page({ params }: { params: { idOrSlug: string } }) {
                 <Card className="flex gap-3 p-3">
                     <div className="my-auto">
                         <Avatar>
-                            <AvatarImage src="/placeholder-user.jpg" />
                             <AvatarFallback>
-                                {fetchData?.user?.lastname[0]}
-                                {fetchData?.user?.firstname[0]}
+                                {fetchData?.user?.lastname[0].toUpperCase()}
+                                {fetchData?.user?.firstname[0].toUpperCase()}
                             </AvatarFallback>
                         </Avatar>
                     </div>
 
                     <div className="flex flex-col">
                         <p>
-                            {`Hôte : ${capitalizeFirstLetter(fetchData?.user?.lastname)} ${capitalizeFirstLetter(fetchData?.user?.firstname)}`}
+                            {`Host : ${capitalizeFirstLetter(fetchData?.user?.lastname)} ${capitalizeFirstLetter(fetchData?.user?.firstname)}`}
                         </p>
-                        <p>{`Membre depuis : ${format(fetchData?.user?.createdAt, 'dd.MM.yyyy')} `}</p>
+                        <p>{`Member since : ${format(fetchData?.user?.createdAt, 'dd.MM.yyyy')} `}</p>
                     </div>
                 </Card>
             )}

@@ -25,25 +25,23 @@ export default function Home() {
     }, [])
 
     return (
-        <div className="py-3 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-2">
+        <div className="grid grid-cols-4 gap-5">
             {fetchData?.map((data: any) => {
                 return (
                     <Link href={`/home-details/${data?.slug}`} key={data?.slug}>
-                        <Card className="max-w-52 min-h-full hover:scale-105 duration-75 p-0">
-                            <div className="p-3 flex flex-col items-center">
-                                <Image
-                                    loader={imageLoader}
-                                    key={`image_${data?.slug}`}
-                                    src={data.images[0]}
-                                    alt={data.title}
-                                    width={160}
-                                    height={160}
-                                    className={
-                                        'object-cover aspect-square rounded'
-                                    }
-                                />
-                                <p className="px-3">{data.title}</p>
-                            </div>
+                        <Card className="group hover:scale-105 duration-75 rounded-xl overflow-hidden">
+                            <Image
+                                loader={imageLoader}
+                                key={`image_${data?.slug}`}
+                                src={data.images[0]}
+                                alt={data.title}
+                                width={320}
+                                height={320}
+                                className={
+                                    'object-cover aspect-video brightness-90 transition will-change-auto group-hover:brightness-110'
+                                }
+                            />
+                            <p className="py-1 px-3">{data.title}</p>
                         </Card>
                     </Link>
                 )

@@ -22,5 +22,5 @@ export default function DashboardLayout({
         isConnectedUser()
     }, [connectedUser])
 
-    return <section>{children}</section>
+    return <>{children}</>
 }

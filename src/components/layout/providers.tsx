@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useState } from 'react'
 // import ThemeProvider from './ThemeToggle/theme-provider'
 import Container from '../container'
+import { ThemeProvider } from './theme-provider'
 
 const ConnectedUserContext = createContext<any>(undefined)
 
@@ -40,8 +41,15 @@ export default function Providers({ children }: { children: React.ReactNode }) {
         //     {/* </ThemeProvider> */}
         // </QueryClientProvider>
 
-        <ConnectedUserContextProvider>
-            <Container>{children}</Container>
-        </ConnectedUserContextProvider>
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+        >
+            <ConnectedUserContextProvider>
+                <Container>{children}</Container>
+            </ConnectedUserContextProvider>
+        </ThemeProvider>
     )
 }
