@@ -24,7 +24,7 @@ export const HomeDetailsCard = (props: any) => {
             <Image
                 loader={imageLoader}
                 key={`image_upload_${src}`}
-                src={src}
+                src={URL.createObjectURL(src)}
                 alt="Prévisualisation"
                 width={320}
                 height={320}

@@ -19,7 +19,7 @@ import { Button } from '@/components/ui/button'
 
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Card } from '@/components/ui/card'
 
 import {
@@ -30,7 +30,6 @@ import {
     typeOfProperty,
 } from '@/constants'
 
-import { Separator } from '@radix-ui/react-dropdown-menu'
 import { HomeDetailsCard } from '@/components/home-details-card'
 import { ButtonImportPicture } from '@/components/button-import-picture'
 
@@ -38,10 +37,14 @@ import {
     createHomeDetailsFormSchema,
     createHomeDetailsFormValues,
 } from '@/zod/home-details-schema'
+import axios from 'axios'
+import { useConnectedUserContext } from '@/components/layout/providers'
+import { useRouter } from 'next/navigation'
 
 export default function SettingsProfilePage() {
     const [selectedImages, setSelectedImages] = useState<any>([])
-
+    const { connectedUser } = useConnectedUserContext()
+    const router = useRouter()
     const removeImagesFromArrayList = (
         setSelectedImages: any,
         index: number
@@ -56,18 +59,39 @@ export default function SettingsProfilePage() {
         mode: 'onChange',
     })
 
-    useEffect(() => {
-        form.resetField('pictures')
-        form.setValue('pictures', selectedImages)
-    }, [selectedImages])
+    async function onSubmit() {
+        let images: any = []
+        console.log('v')
 
-    function onSubmit(data: createHomeDetailsFormValues) {
-        console.log('félicitation tu peux aller dormir !!')
+        await Promise.all(
+            selectedImages.map(async (file: any) => {
+                const formData = new FormData()
+                formData.append('file', file)
 
-        toast({
-            title: 'Your ad will soon be available on Twist!',
-            variant: 'custom',
+                let response: any = await axios({
+                    method: 'post',
+                    url: `${process.env.NEXT_PUBLIC_API + '/upload-picture/uploadImage'}`,
+                    data: formData,
+                    headers: {
+                        'content-type': 'multipart/form-data',
+                    },
+                })
+                const { data } = response
+                images.push(data)
+            })
+        )
+        form.setValue('images', images.reverse())
+        form.setValue('slug', form.getValues()?.title)
+        form.setValue('userId', connectedUser.id)
+
+        let response: any = await axios({
+            method: 'post',
+            url: `${process.env.NEXT_PUBLIC_API + '/home-details'}`,
+            data: form.getValues(),
         })
+        if (response.status == 201) {
+            router.push('/')
+        }
     }
 
     return (
@@ -75,7 +99,7 @@ export default function SettingsProfilePage() {
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
-                    className="space-y-8"
+                    className="flex flex-col space-y-8 items-center"
                 >
                     <div className="text-2xl font-semibold text-center text-primary">
                         General
@@ -84,7 +108,7 @@ export default function SettingsProfilePage() {
                         control={form.control}
                         name="title"
                         render={({ field }) => (
-                            <FormItem>
+                            <FormItem className="w-full">
                                 <FormLabel>Title</FormLabel>
                                 <FormControl>
                                     <Input {...field} />
@@ -97,7 +121,7 @@ export default function SettingsProfilePage() {
                         control={form.control}
                         name="description"
                         render={({ field }) => (
-                            <FormItem>
+                            <FormItem className="w-full">
                                 <FormLabel>Description</FormLabel>
                                 <FormControl>
                                     <Textarea
@@ -152,7 +176,7 @@ export default function SettingsProfilePage() {
 
                     <FormField
                         control={form.control}
-                        name="pictures"
+                        name="images"
                         render={() => (
                             <FormItem className="flex flex-col gap-3 items-center">
                                 <div className="flex flex-wrap gap-5">
@@ -210,8 +234,6 @@ export default function SettingsProfilePage() {
                             </FormItem>
                         )}
                     />
-
-                    <Separator className="bg-primary/50 h-[1px]" />
 
                     <div className="text-2xl font-semibold text-center text-primary">
                         Advance
@@ -392,7 +414,6 @@ export default function SettingsProfilePage() {
                         })}
                     </div>
 
-                    <Separator className="bg-primary/50 h-[1px]" />
                     <div className="text-2xl font-semibold text-center text-primary">
                         Localisation
                     </div>
@@ -465,7 +486,17 @@ export default function SettingsProfilePage() {
                             />
                         </div>
                     </div>
-                    <Button type="submit">Publish</Button>
+
+                    <Button
+                        size={'lg'}
+                        type="submit"
+                        onClick={async (e) => {
+                            await form.setValue('images', [''])
+                            onSubmit()
+                        }}
+                    >
+                        Publish
+                    </Button>
                 </form>
             </Form>
         </div>

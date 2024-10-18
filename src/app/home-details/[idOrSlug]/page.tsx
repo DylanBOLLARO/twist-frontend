@@ -65,18 +65,18 @@ export default function Page({ params }: { params: { idOrSlug: string } }) {
                     </Button>
                 </div>
             </div>
-            <div className="columns-1 gap-4 sm:columns-2 xl:columns-3 2xl:columns-4 rounded-3xl overflow-hidden">
+            <div className="columns-3 rounded-3xl overflow-hidden">
                 {fetchData?.images?.map((src: string) => (
                     <Link
                         key={`image_${src}`}
                         href={'#'}
                         shallow
-                        className="after:content group relative mb-5 block w-full after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
+                        className="after:content group relative block w-full after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
                     >
                         <Image
                             alt=""
-                            className="brightness-90 transition will-change-auto group-hover:brightness-110"
-                            src={src}
+                            className="brightness-90 transition will-change-auto group-hover:brightness-110 aspect-video object-cover"
+                            src={`http://localhost:55000/uploads_pictures/${src}`}
                             width={720}
                             loader={imageLoader}
                             height={480}
@@ -119,62 +119,6 @@ export default function Page({ params }: { params: { idOrSlug: string } }) {
             <p className="flex-1 leading-7 [&:not(:first-child)]:mt-6">
                 {fetchData?.description}
             </p>
-
-            <div className="flex gap-3">
-                <Calendar
-                    mode="single"
-                    selected={date}
-                    onSelect={setDate}
-                    className="rounded-xl border shadow bg-card"
-                />
-                <Card className="flex-1">
-                    <CardHeader>
-                        <CardTitle>Create project</CardTitle>
-                        <CardDescription>
-                            Deploy your new project in one-click.
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                        <form>
-                            <div className="grid w-full items-center gap-4">
-                                <div className="flex flex-col space-y-1.5">
-                                    <Label htmlFor="name">Name</Label>
-                                    <Input
-                                        id="name"
-                                        placeholder="Name of your project"
-                                    />
-                                </div>
-                                <div className="flex flex-col space-y-1.5">
-                                    <Label htmlFor="framework">Framework</Label>
-                                    <Select>
-                                        <SelectTrigger id="framework">
-                                            <SelectValue placeholder="Select" />
-                                        </SelectTrigger>
-                                        <SelectContent position="popper">
-                                            <SelectItem value="next">
-                                                Next.js
-                                            </SelectItem>
-                                            <SelectItem value="sveltekit">
-                                                SvelteKit
-                                            </SelectItem>
-                                            <SelectItem value="astro">
-                                                Astro
-                                            </SelectItem>
-                                            <SelectItem value="nuxt">
-                                                Nuxt.js
-                                            </SelectItem>
-                                        </SelectContent>
-                                    </Select>
-                                </div>
-                            </div>
-                        </form>
-                    </CardContent>
-                    <CardFooter className="flex justify-between">
-                        <Button variant="outline">Cancel</Button>
-                        <Button>Deploy</Button>
-                    </CardFooter>
-                </Card>
-            </div>
         </div>
     )
 }

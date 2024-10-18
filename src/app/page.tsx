@@ -33,7 +33,7 @@ export default function Home() {
                             <Image
                                 loader={imageLoader}
                                 key={`image_${data?.slug}`}
-                                src={data.images[0]}
+                                src={`${process.env.NEXT_PUBLIC_API}/uploads_pictures/${data.images[0]}`}
                                 alt={data.title}
                                 width={320}
                                 height={320}

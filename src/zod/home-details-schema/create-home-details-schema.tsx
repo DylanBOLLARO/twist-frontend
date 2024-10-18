@@ -21,6 +21,7 @@ export const createHomeDetailsFormSchema = z.object({
     description: z.string().min(20, {
         message: 'Description must be at least 20 characters.',
     }),
+    slug: z.string(),
     price: z.string().refine(
         (v) => {
             let n = Number(v)
@@ -35,9 +36,7 @@ export const createHomeDetailsFormSchema = z.object({
         },
         { message: 'Please enter only a number' }
     ),
-    pictures: z.string().array().min(1, {
-        message: 'You must select at least one picture.',
-    }),
+    images: z.string().array().default(['']),
     garage: z.boolean(),
     garden: z.boolean(),
     pool: z.boolean(),
@@ -52,6 +51,7 @@ export const createHomeDetailsFormSchema = z.object({
     ),
     city: z.string(),
     country: z.string(),
+    userId: z.number(),
 
     // @ts-ignore // zod error ? Argument of type 'string[]' is not assignable to parameter of type 'readonly [string, ...string[]]'.
     typeOfontract: z.enum([...Object.keys(typeOfontract)]),

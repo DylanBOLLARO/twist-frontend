@@ -14,26 +14,6 @@ export const ButtonImportPicture = (props: any) => {
         inputRef.current.click()
     }
 
-    function handleFileUpload(e: any) {
-        setSelectedImages((prev: any) => [
-            ...prev,
-            URL.createObjectURL(e.target.files[0]),
-        ])
-    }
-
-    // can upload picture with URL.createObjectURL() method instead of use base64 images ?
-    // function handleFileUpload(e: any) {
-    //     const file = e.target.files[0]
-    //     if (file) {
-    //         const reader = new FileReader()
-    //         reader.onloadend = () => {
-    //             setSelectedImages((prev: any) => [...prev, reader.result])
-    //         }
-
-    //         reader.readAsDataURL(file)
-    //     }
-    // }
-
     return (
         <>
             <div className="flex gap-3">
@@ -49,7 +29,10 @@ export const ButtonImportPicture = (props: any) => {
                 ref={inputRef}
                 type="file"
                 hidden
-                onChange={handleFileUpload}
+                onChange={(e: any) => {
+                    const file = e.target.files[0]
+                    setSelectedImages((prev: any) => [...prev, file])
+                }}
             />
         </>
     )
