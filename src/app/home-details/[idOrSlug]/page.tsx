@@ -66,7 +66,7 @@ export default function Page({ params }: { params: { idOrSlug: string } }) {
                 </div>
             </div>
             <div className="columns-3 rounded-3xl overflow-hidden">
-                {fetchData?.images?.map((src: string) => (
+                {fetchData?.images?.sort()?.map((src: string) => (
                     <Link
                         key={`image_${src}`}
                         href={'#'}

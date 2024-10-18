@@ -29,11 +29,11 @@ export default function Home() {
             {fetchData?.map((data: any) => {
                 return (
                     <Link href={`/home-details/${data?.slug}`} key={data?.slug}>
-                        <Card className="group hover:scale-105 duration-75 rounded-xl overflow-hidden">
+                        <Card className="group  duration-75 rounded-xl overflow-hidden">
                             <Image
                                 loader={imageLoader}
                                 key={`image_${data?.slug}`}
-                                src={`${process.env.NEXT_PUBLIC_API}/uploads_pictures/${data.images[0]}`}
+                                src={`${process.env.NEXT_PUBLIC_API}/uploads_pictures/${data.images.sort()[0]}`}
                                 alt={data.title}
                                 width={320}
                                 height={320}
