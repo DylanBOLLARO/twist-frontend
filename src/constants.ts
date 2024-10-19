@@ -1,22 +1,10 @@
-type TypeOfProperty = {
-    APARTMENT: string
-    HOUSE: string
-    OTHER: string
-}
-
-export const typeOfProperty: TypeOfProperty = Object.freeze({
+export const typeOfProperty: any = Object.freeze({
     APARTMENT: 'Apartment',
     HOUSE: 'House',
     OTHER: 'Other',
 })
 
-type TypeOfontract = {
-    SHORT_TERM_RENTAL: string
-    LONG_TERM_RENTAL: string
-    SALE: string
-}
-
-export const typeOfontract: TypeOfontract = Object.freeze({
+export const typeOfContract: any = Object.freeze({
     LONG_TERM_RENTAL: 'Long Term Rental',
     SHORT_TERM_RENTAL: 'Short Term Rental',
     SALE: 'For Sale',

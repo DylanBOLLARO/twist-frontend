@@ -65,7 +65,7 @@ export default function Page({ params }: { params: { idOrSlug: string } }) {
                     </Button>
                 </div>
             </div>
-            <div className="columns-3 rounded-3xl overflow-hidden">
+            <div className="columns-3 rounded">
                 {fetchData?.images?.sort()?.map((src: string) => (
                     <Link
                         key={`image_${src}`}
@@ -75,7 +75,7 @@ export default function Page({ params }: { params: { idOrSlug: string } }) {
                     >
                         <Image
                             alt=""
-                            className="brightness-90 transition will-change-auto group-hover:brightness-110 aspect-video object-cover"
+                            className="brightness-90 rounded transition will-change-auto group-hover:brightness-110 aspect-video object-cover"
                             src={`http://localhost:55000/uploads_pictures/${src}`}
                             width={720}
                             loader={imageLoader}

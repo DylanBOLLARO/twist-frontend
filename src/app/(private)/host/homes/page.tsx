@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form'
 
 import { capitalizeFirstLetter } from '@/lib/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { toast } from '@/hooks/use-toast'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 
 import {
@@ -26,7 +25,7 @@ import {
     LIST_CHOICE_BOOLEAN,
     nbBedroomsAndnbBathrooms,
     NUMBER_OF_PICTURES,
-    typeOfontract,
+    typeOfContract,
     typeOfProperty,
 } from '@/constants'
 
@@ -183,7 +182,10 @@ export default function SettingsProfilePage() {
                                     {[...Array(NUMBER_OF_PICTURES).keys()].map(
                                         (_, index) => {
                                             return (
-                                                <div className="flex flex-col gap-3 group">
+                                                <div
+                                                    className="flex flex-col gap-3 group"
+                                                    key={`picture_${index}`}
+                                                >
                                                     <Card className="relative duration-75 rounded-xl overflow-hidden w-fit group-first:border-2 group-first:border-primary ">
                                                         <HomeDetailsCard
                                                             src={
@@ -242,7 +244,7 @@ export default function SettingsProfilePage() {
                     <div className="space-y-3">
                         <FormField
                             control={form.control}
-                            name="typeOfontract"
+                            name="typeOfContract"
                             render={({ field }) => (
                                 <FormItem className="flex flex-wrap items-center space-x-5">
                                     <FormLabel className="min-w-[100px]">
@@ -254,10 +256,11 @@ export default function SettingsProfilePage() {
                                             className="gap-3"
                                             onValueChange={field.onChange}
                                         >
-                                            {Object.entries(typeOfontract).map(
+                                            {Object.entries(typeOfContract).map(
                                                 ([key, value]: any) => {
                                                     return (
                                                         <ToggleGroupItem
+                                                            key={`toggle-group-item_${key}`}
                                                             size={'lg'}
                                                             value={key}
                                                             variant={'outline'}
@@ -294,6 +297,7 @@ export default function SettingsProfilePage() {
                                                 ([key, value]: any) => {
                                                     return (
                                                         <ToggleGroupItem
+                                                            key={`toggle-group-item_${key}`}
                                                             size={'lg'}
                                                             value={key}
                                                             variant={'outline'}
@@ -315,6 +319,7 @@ export default function SettingsProfilePage() {
                         {['garage', 'garden', 'pool'].map((property: any) => {
                             return (
                                 <FormField
+                                    key={`form-field_${property}`}
                                     control={form.control}
                                     name={property}
                                     render={({ field }) => (
@@ -341,6 +346,7 @@ export default function SettingsProfilePage() {
                                                         ([key, value]: any) => {
                                                             return (
                                                                 <ToggleGroupItem
+                                                                    key={`toggle-group-item_${key}`}
                                                                     className="px-5"
                                                                     size={'lg'}
                                                                     value={key}
@@ -367,6 +373,7 @@ export default function SettingsProfilePage() {
                         {['bedrooms', 'bathrooms'].map((property: any) => {
                             return (
                                 <FormField
+                                    key={`form-field_${property}`}
                                     control={form.control}
                                     name={property}
                                     render={({ field }) => (
@@ -391,6 +398,7 @@ export default function SettingsProfilePage() {
                                                         ([key, value]: any) => {
                                                             return (
                                                                 <ToggleGroupItem
+                                                                    key={`toggle-group-item_${key}`}
                                                                     className="px-5"
                                                                     value={key}
                                                                     variant={
@@ -489,9 +497,8 @@ export default function SettingsProfilePage() {
 
                     <Button
                         size={'lg'}
-                        type="submit"
-                        onClick={async (e) => {
-                            await form.setValue('images', [''])
+                        onClick={() => {
+                            form.setValue('images', [''])
                             onSubmit()
                         }}
                     >

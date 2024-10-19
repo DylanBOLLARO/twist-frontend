@@ -1,6 +1,6 @@
 import {
     nbBedroomsAndnbBathrooms,
-    typeOfontract,
+    typeOfContract,
     typeOfProperty,
 } from '@/constants'
 import { z } from 'zod'
@@ -54,7 +54,7 @@ export const createHomeDetailsFormSchema = z.object({
     userId: z.number(),
 
     // @ts-ignore // zod error ? Argument of type 'string[]' is not assignable to parameter of type 'readonly [string, ...string[]]'.
-    typeOfontract: z.enum([...Object.keys(typeOfontract)]),
+    typeOfContract: z.enum([...Object.keys(typeOfContract)]),
     // @ts-ignore // zod error ? Argument of type 'string[]' is not assignable to parameter of type 'readonly [string, ...string[]]'.
     typeOfProperty: z.enum([...Object.keys(typeOfProperty)]),
     // @ts-ignore // zod error ? Argument of type 'string[]' is not assignable to parameter of type 'readonly [string, ...string[]]'.
