@@ -18,6 +18,14 @@ export default function Home() {
     return (
         <div className="flex flex-col gap-5">
             <FilterBar />
+
+            {!results?.length && (
+                <Card className="flex text-xl text-muted-foreground w-full p-5 justify-center">
+                    No data available to display at the moment. Please try again
+                    later or contact support if the issue persists.
+                </Card>
+            )}
+
             <div className="grid grid-cols-4 gap-5">
                 {results?.map((data: any) => {
                     return (

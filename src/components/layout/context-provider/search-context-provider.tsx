@@ -35,9 +35,12 @@ export const SearchContextProvider = ({ children }: any) => {
     )
 
     async function getHomeDetails() {
-        const url = process.env.NEXT_PUBLIC_API + '/home-details'
         try {
-            const response = await axios.get(url ?? '')
+            const response = await axios({
+                method: 'get',
+                url: `${process.env.NEXT_PUBLIC_API}/home-details`,
+                params: selectFilterValues,
+            })
             setHomeDetails(response?.data)
         } catch (error) {
             console.error(error)
@@ -48,13 +51,13 @@ export const SearchContextProvider = ({ children }: any) => {
         setSelectFilterValues(defaultValuesFilter())
     }
 
-    const search = () => {
-        console.log('first')
-    }
-
     useEffect(() => {
         getHomeDetails()
     }, [])
+
+    useEffect(() => {
+        getHomeDetails()
+    }, [selectFilterValues])
 
     return (
         <SearchContext.Provider
@@ -63,7 +66,6 @@ export const SearchContextProvider = ({ children }: any) => {
                 setSelectFilterValues,
                 listOfSelectFilter,
                 resetValuesOfSearchFilter,
-                search,
                 getHomeDetails,
                 homeDetails,
             }}

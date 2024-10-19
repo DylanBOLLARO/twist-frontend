@@ -72,7 +72,6 @@ export const FilterBar = () => {
                     Reset
                 </Button>
             </div>
-            <Button onClick={search}>Search</Button>
         </Card>
     )
 }
