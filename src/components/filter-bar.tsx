@@ -8,44 +8,21 @@ import {
 } from '@/components/ui/select'
 import { Card } from './ui/card'
 import { Button } from './ui/button'
-import { typeOfContract, typeOfProperty } from '@/constants'
-import { useState } from 'react'
-
-const LIST_OF_SELECT_FILTER = [
-    [
-        Object.entries({ typeOfProperty: 'Type of property' }),
-        Object.entries(typeOfProperty),
-    ],
-    [
-        Object.entries({ typeOfContract: 'Type of contract' }),
-        Object.entries(typeOfContract),
-    ],
-]
+import { useSearchContext } from './layout/context-provider/search-context-provider'
 
 export const FilterBar = () => {
-    const defaultValuesFilter = () => {
-        const keys = LIST_OF_SELECT_FILTER.map(([keyData, _]: any) => {
-            const [[propertyKey, __]] = keyData
-            return propertyKey
-        })
-
-        return keys.reduce((acc, value) => {
-            return { ...acc, [value]: '' }
-        }, {})
-    }
-
-    const [selectFilterValues, setSelectFilterValues] = useState<any>(
-        defaultValuesFilter()
-    )
-
-    const search = () => {
-        console.log(selectFilterValues)
-    }
+    const {
+        listOfSelectFilter,
+        selectFilterValues,
+        setSelectFilterValues,
+        resetValuesOfSearchFilter,
+        search,
+    } = useSearchContext()
 
     return (
         <Card className="flex gap-3 p-3 justify-between items-center">
             <div className="flex gap-3">
-                {LIST_OF_SELECT_FILTER.map(
+                {listOfSelectFilter?.map(
                     ([keyData, listOfKeyDataValue]: any) => {
                         const [[propertyKey, prettyStringOfKey]] = keyData
 
@@ -91,22 +68,11 @@ export const FilterBar = () => {
                         )
                     }
                 )}
-                <Button
-                    variant={'outline'}
-                    onClick={() => {
-                        setSelectFilterValues(defaultValuesFilter())
-                    }}
-                >
+                <Button variant={'outline'} onClick={resetValuesOfSearchFilter}>
                     Reset
                 </Button>
             </div>
-            <Button
-                onClick={() => {
-                    search()
-                }}
-            >
-                Search
-            </Button>
+            <Button onClick={search}>Search</Button>
         </Card>
     )
 }

@@ -37,8 +37,8 @@ import {
     createHomeDetailsFormValues,
 } from '@/zod/home-details-schema'
 import axios from 'axios'
-import { useConnectedUserContext } from '@/components/layout/providers'
 import { useRouter } from 'next/navigation'
+import { useConnectedUserContext } from '@/components/layout/context-provider'
 
 export default function SettingsProfilePage() {
     const [selectedImages, setSelectedImages] = useState<any>([])

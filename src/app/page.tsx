@@ -3,37 +3,23 @@
 import { Card } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { imageLoader } from '@/lib/utils'
-import axios from 'axios'
 import { format } from 'date-fns'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
 
 import { FilterBar } from '@/components/filter-bar'
 import { typeOfContract, typeOfProperty } from '@/constants'
+import { useSearchContext } from '@/components/layout/context-provider'
 
 export default function Home() {
-    const [fetchData, setFetchData] = useState([])
-
-    async function getUser() {
-        const url = process.env.NEXT_PUBLIC_API + '/home-details'
-        try {
-            const response = await axios.get(url ?? '')
-            setFetchData(response?.data?.results)
-        } catch (error) {
-            console.error(error)
-        }
-    }
-
-    useEffect(() => {
-        getUser()
-    }, [])
+    const { homeDetails } = useSearchContext()
+    const { results } = homeDetails
 
     return (
         <div className="flex flex-col gap-5">
             <FilterBar />
             <div className="grid grid-cols-4 gap-5">
-                {fetchData?.map((data: any) => {
+                {results?.map((data: any) => {
                     return (
                         <Link
                             href={`/home-details/${data?.slug}`}

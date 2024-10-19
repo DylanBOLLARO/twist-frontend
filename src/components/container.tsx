@@ -2,8 +2,8 @@
 
 import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
-import { useConnectedUserContext } from './layout/providers'
 import axios from 'axios'
+import { useConnectedUserContext } from './layout/context-provider'
 
 interface ContainerProps {
     children: React.ReactNode

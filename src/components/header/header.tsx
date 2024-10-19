@@ -2,8 +2,8 @@
 
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { useConnectedUserContext } from '../layout/providers'
 import { AvatarConnectedUser } from './avatar-connected-user'
+import { useConnectedUserContext } from '../layout/context-provider'
 
 export const Header = () => {
     const { connectedUser } = useConnectedUserContext()

@@ -1,6 +1,6 @@
 'use client'
 
-import { useConnectedUserContext } from '@/components/layout/providers'
+import { useConnectedUserContext } from '@/components/layout/context-provider'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
@@ -22,5 +22,5 @@ export default function DashboardLayout({
         isConnectedUser()
     }, [connectedUser])
 
-    return <>{children}</>
+    return children
 }

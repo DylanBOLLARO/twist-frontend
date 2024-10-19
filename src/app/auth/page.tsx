@@ -1,6 +1,6 @@
 'use client'
 
-import { useConnectedUserContext } from '@/components/layout/providers'
+import { useConnectedUserContext } from '@/components/layout/context-provider'
 import { Button } from '@/components/ui/button'
 import {
     Card,

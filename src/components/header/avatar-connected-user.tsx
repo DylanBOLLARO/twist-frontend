@@ -9,7 +9,7 @@ import {
     DropdownMenuTrigger,
 } from '../ui/dropdown-menu'
 import Link from 'next/link'
-import { useConnectedUserContext } from '../layout/providers'
+import { useConnectedUserContext } from '../layout/context-provider'
 
 export const AvatarConnectedUser = () => {
     const { setConnectedUser } = useConnectedUserContext()
