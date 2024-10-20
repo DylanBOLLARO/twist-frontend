@@ -1,53 +1,36 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import Image from "next/image"
+import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { capitalizeFirstLetter, imageLoader } from "@/utils/utils"
 import axios from "axios"
 import { format } from "date-fns"
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Calendar } from "@/components/ui/calendar"
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
+import { Card } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
+import { useConnectedUserContext } from "@/components/layout/context-provider"
 
 export default function Page({ params }: { params: { idOrSlug: string } }) {
-    const [fetchData, setFetchData] = useState<any>({})
-    const [date, setDate] = useState<Date | undefined>(new Date())
-
-    async function getUser() {
+    async function getHomeDetails() {
         try {
-            const response = await axios.get(
-                process.env.NEXT_PUBLIC_API + `/home-details/${params.idOrSlug}`
-            )
+            const response: any = await axios({
+                method: "get",
+                url: `${process.env.NEXT_PUBLIC_API}/home-details/${params.idOrSlug}`,
+            })
+
             setFetchData(response?.data)
         } catch (error) {
             console.error(error)
         }
     }
 
-    useEffect(() => {
-        getUser()
-    }, [])
+    const [fetchData, setFetchData] = useState<any>(getHomeDetails())
+    const { listOfMyIdOrSlug } = useConnectedUserContext()
 
     const TAG_LIST = ["bedrooms", "bathrooms", "garage", "garden", "pool"]
 
@@ -59,10 +42,20 @@ export default function Page({ params }: { params: { idOrSlug: string } }) {
                 </h2>
 
                 <div className="flex flex-row gap-3">
-                    <Button size={"lg"}>Share</Button>
+                    {listOfMyIdOrSlug?.includes(params?.idOrSlug) && (
+                        <Button size={"lg"} asChild>
+                            <Link
+                                href={`/my-publications/${params?.idOrSlug}/edit`}
+                            >
+                                Edit
+                            </Link>
+                        </Button>
+                    )}
+
+                    {/* <Button size={"lg"}>Share</Button>
                     <Button size={"lg"} variant={"outline"}>
                         Save
-                    </Button>
+                    </Button> */}
                 </div>
             </div>
             <div className="columns-3 rounded">

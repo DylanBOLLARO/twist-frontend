@@ -23,3 +23,10 @@ export const LIST_CHOICE_BOOLEAN = Object.freeze({
     no: false,
     yes: true,
 })
+
+export const noDataAvailable = {
+    youHaveNoPublications: "You don't have any publications yet",
+    noDataAvailable:
+        "No data available to display at the moment. Please try again later or contact support if the issue persists.",
+}
+

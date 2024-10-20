@@ -496,6 +496,7 @@ export default function SettingsProfilePage() {
 
                     <Button
                         size={"lg"}
+                        className="font-bold"
                         onClick={() => {
                             form.setValue("images", [""])
                             onSubmit()

@@ -1,26 +1,25 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { useRouter } from "next/navigation"
-import { capitalizeFirstLetter } from "@/utils/utils"
-import axios from "axios"
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { capitalizeFirstLetter } from "@/utils/utils";
+import axios from "axios";
 
-import { Button } from "@/components/ui/button"
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { useConnectedUserContext } from "@/components/layout/context-provider"
+
+
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useConnectedUserContext } from "@/components/layout/context-provider";
+
+
+
+
 
 const LIST_LOGIN_INPUT_FIELD = ["email", "password"]
-const LIST_FIRSTNAME_LASTNAME_INPUT_FIELD = ["last_name", "first_name"]
+const LIST_FIRSTNAME_LASTNAME_INPUT_FIELD = ["lastname", "firstname"]
 
 const InputField = ({ fieldName, setCredentials }: any) => {
     return (
@@ -65,7 +64,6 @@ export default function TabsDemo() {
                 url: `${process.env.NEXT_PUBLIC_API + "/auth/local/signin"}`,
                 data: credentials,
             })
-
             if (
                 Object.hasOwn(response?.data, "access_token") &&
                 Object.hasOwn(response?.data, "refresh_token")
@@ -99,6 +97,7 @@ export default function TabsDemo() {
     async function register(credentials: any) {
         setListInfo([])
 
+        delete credentials.confirm
         try {
             const response: any = await axios({
                 method: "post",

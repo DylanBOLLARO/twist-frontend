@@ -1,4 +1,3 @@
-import Link from "next/link"
 import { CircleUser } from "lucide-react"
 
 import { useConnectedUserContext } from "../layout/context-provider"
@@ -13,35 +12,34 @@ import {
 } from "../ui/dropdown-menu"
 
 export const AvatarConnectedUser = () => {
-    const { setConnectedUser } = useConnectedUserContext()
+    const { setConnectedUser, connectedUser } = useConnectedUserContext()
     return (
-        <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-                <Button
-                    variant="secondary"
-                    size="icon"
-                    className="rounded-full"
-                >
-                    <CircleUser className="h-5 w-5" />
-                    <span className="sr-only">Toggle user menu</span>
-                </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem asChild>
-                    <Link href="/settings">Settings</Link>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem
-                    onClick={() => {
-                        localStorage.clear()
-                        setConnectedUser(undefined)
-                    }}
-                >
-                    Logout
-                </DropdownMenuItem>
-            </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="flex items-center space-x-5">
+            <p>{connectedUser?.firstname}</p>
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <Button
+                        variant="secondary"
+                        size="icon"
+                        className="rounded-full"
+                    >
+                        <CircleUser className="h-5 w-5" />
+                        <span className="sr-only">Toggle user menu</span>
+                    </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem
+                        onClick={() => {
+                            localStorage.clear()
+                            setConnectedUser(undefined)
+                        }}
+                    >
+                        Logout
+                    </DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
+        </div>
     )
 }

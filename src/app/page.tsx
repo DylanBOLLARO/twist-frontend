@@ -1,5 +1,7 @@
 "use client"
 
+import { noDataAvailable } from "@/constants"
+
 import { ListCardHomeDetails } from "@/components/card-home-details"
 import { FilterBar } from "@/components/filter-bar"
 import { useSearchContext } from "@/components/layout/context-provider"
@@ -16,7 +18,7 @@ export default function Home() {
             {!!results?.length ? (
                 <ListCardHomeDetails listOfHomeDetails={results} />
             ) : (
-                <NoDataAvailable />
+                <NoDataAvailable text={noDataAvailable.noDataAvailable} />
             )}
         </div>
     )

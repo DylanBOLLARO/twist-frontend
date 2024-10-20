@@ -1,10 +1,9 @@
 import { Card } from "./ui/card"
 
-export const NoDataAvailable = () => {
+export const NoDataAvailable = ({ text }: any) => {
     return (
         <Card className="flex text-xl text-muted-foreground w-full p-5 justify-center">
-            No data available to display at the moment. Please try again later
-            or contact support if the issue persists.
+            {text}
         </Card>
     )
 }
