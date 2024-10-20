@@ -1,11 +1,25 @@
-'use client'
+"use client"
 
-import { useForm } from 'react-hook-form'
+import { useState } from "react"
+import { useRouter } from "next/navigation"
+import {
+    LIST_CHOICE_BOOLEAN,
+    NUMBER_OF_PICTURES,
+    nbBedroomsAndnbBathrooms,
+    typeOfContract,
+    typeOfProperty,
+} from "@/constants/constants"
+import { capitalizeFirstLetter } from "@/utils/utils"
+import {
+    createHomeDetailsFormSchema,
+    createHomeDetailsFormValues,
+} from "@/zod/home-details-schema"
+import { zodResolver } from "@hookform/resolvers/zod"
+import axios from "axios"
+import { useForm } from "react-hook-form"
 
-import { capitalizeFirstLetter } from '@/lib/utils'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
-
+import { Button } from "@/components/ui/button"
+import { Card } from "@/components/ui/card"
 import {
     Form,
     FormControl,
@@ -13,37 +27,19 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from '@/components/ui/form'
-import { Button } from '@/components/ui/button'
-
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { useState } from 'react'
-import { Card } from '@/components/ui/card'
-
-import {
-    LIST_CHOICE_BOOLEAN,
-    nbBedroomsAndnbBathrooms,
-    NUMBER_OF_PICTURES,
-    typeOfContract,
-    typeOfProperty,
-} from '@/constants'
-
-import { HomeDetailsCard } from '@/components/home-details-card'
-import { ButtonImportPicture } from '@/components/button-import-picture'
-
-import {
-    createHomeDetailsFormSchema,
-    createHomeDetailsFormValues,
-} from '@/zod/home-details-schema'
-import axios from 'axios'
-import { useRouter } from 'next/navigation'
-import { useConnectedUserContext } from '@/components/layout/context-provider'
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
+import { ButtonImportPicture } from "@/components/button-import-picture"
+import { HomeDetailsCard } from "@/components/home-details-card"
+import { useConnectedUserContext } from "@/components/layout/context-provider"
 
 export default function SettingsProfilePage() {
     const [selectedImages, setSelectedImages] = useState<any>([])
     const { connectedUser } = useConnectedUserContext()
     const router = useRouter()
+
     const removeImagesFromArrayList = (
         setSelectedImages: any,
         index: number
@@ -55,41 +51,43 @@ export default function SettingsProfilePage() {
 
     const form = useForm<createHomeDetailsFormValues>({
         resolver: zodResolver(createHomeDetailsFormSchema),
-        mode: 'onChange',
+        mode: "onChange",
     })
 
     async function onSubmit() {
         let images: any = []
-        console.log('v')
 
         await Promise.all(
             selectedImages.map(async (file: any) => {
                 const formData = new FormData()
-                formData.append('file', file)
+                formData.append("file", file)
 
                 let response: any = await axios({
-                    method: 'post',
-                    url: `${process.env.NEXT_PUBLIC_API + '/upload-picture/uploadImage'}`,
+                    method: "post",
+                    url: `${
+                        process.env.NEXT_PUBLIC_API +
+                        "/upload-picture/uploadImage"
+                    }`,
                     data: formData,
                     headers: {
-                        'content-type': 'multipart/form-data',
+                        "content-type": "multipart/form-data",
                     },
                 })
                 const { data } = response
                 images.push(data)
             })
         )
-        form.setValue('images', images.reverse())
-        form.setValue('slug', form.getValues()?.title)
-        form.setValue('userId', connectedUser.id)
+        form.setValue("images", images.reverse())
+        form.setValue("slug", form.getValues()?.title)
+        form.setValue("userId", connectedUser.id)
 
         let response: any = await axios({
-            method: 'post',
-            url: `${process.env.NEXT_PUBLIC_API + '/home-details'}`,
+            method: "post",
+            url: `${process.env.NEXT_PUBLIC_API + "/home-details"}`,
             data: form.getValues(),
         })
         if (response.status == 201) {
-            router.push('/')
+            router.push("/")
         }
     }
 
@@ -103,6 +101,7 @@ export default function SettingsProfilePage() {
                     <div className="text-2xl font-semibold text-center text-primary">
                         General
                     </div>
+
                     <FormField
                         control={form.control}
                         name="title"
@@ -261,9 +260,9 @@ export default function SettingsProfilePage() {
                                                     return (
                                                         <ToggleGroupItem
                                                             key={`toggle-group-item_${key}`}
-                                                            size={'lg'}
+                                                            size={"lg"}
                                                             value={key}
-                                                            variant={'outline'}
+                                                            variant={"outline"}
                                                         >
                                                             {capitalizeFirstLetter(
                                                                 value
@@ -298,9 +297,9 @@ export default function SettingsProfilePage() {
                                                     return (
                                                         <ToggleGroupItem
                                                             key={`toggle-group-item_${key}`}
-                                                            size={'lg'}
+                                                            size={"lg"}
                                                             value={key}
-                                                            variant={'outline'}
+                                                            variant={"outline"}
                                                         >
                                                             {capitalizeFirstLetter(
                                                                 value
@@ -316,7 +315,7 @@ export default function SettingsProfilePage() {
                             )}
                         />
 
-                        {['garage', 'garden', 'pool'].map((property: any) => {
+                        {["garage", "garden", "pool"].map((property: any) => {
                             return (
                                 <FormField
                                     key={`form-field_${property}`}
@@ -336,7 +335,7 @@ export default function SettingsProfilePage() {
                                                     onValueChange={(e) => {
                                                         form.setValue(
                                                             property,
-                                                            e === 'yes'
+                                                            e === "yes"
                                                         )
                                                     }}
                                                 >
@@ -348,10 +347,10 @@ export default function SettingsProfilePage() {
                                                                 <ToggleGroupItem
                                                                     key={`toggle-group-item_${key}`}
                                                                     className="px-5"
-                                                                    size={'lg'}
+                                                                    size={"lg"}
                                                                     value={key}
                                                                     variant={
-                                                                        'outline'
+                                                                        "outline"
                                                                     }
                                                                 >
                                                                     {capitalizeFirstLetter(
@@ -370,7 +369,7 @@ export default function SettingsProfilePage() {
                             )
                         })}
 
-                        {['bedrooms', 'bathrooms'].map((property: any) => {
+                        {["bedrooms", "bathrooms"].map((property: any) => {
                             return (
                                 <FormField
                                     key={`form-field_${property}`}
@@ -387,7 +386,7 @@ export default function SettingsProfilePage() {
                                                 <ToggleGroup
                                                     className="gap-3"
                                                     type="single"
-                                                    size={'lg'}
+                                                    size={"lg"}
                                                     onValueChange={
                                                         field.onChange
                                                     }
@@ -402,7 +401,7 @@ export default function SettingsProfilePage() {
                                                                     className="px-5"
                                                                     value={key}
                                                                     variant={
-                                                                        'outline'
+                                                                        "outline"
                                                                     }
                                                                 >
                                                                     {capitalizeFirstLetter(
@@ -496,9 +495,9 @@ export default function SettingsProfilePage() {
                     </div>
 
                     <Button
-                        size={'lg'}
+                        size={"lg"}
                         onClick={() => {
-                            form.setValue('images', [''])
+                            form.setValue("images", [""])
                             onSubmit()
                         }}
                     >

@@ -1,5 +1,8 @@
-import { CircleUser } from 'lucide-react'
-import { Button } from '../ui/button'
+import Link from "next/link"
+import { CircleUser } from "lucide-react"
+
+import { useConnectedUserContext } from "../layout/context-provider"
+import { Button } from "../ui/button"
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -7,9 +10,7 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from '../ui/dropdown-menu'
-import Link from 'next/link'
-import { useConnectedUserContext } from '../layout/context-provider'
+} from "../ui/dropdown-menu"
 
 export const AvatarConnectedUser = () => {
     const { setConnectedUser } = useConnectedUserContext()

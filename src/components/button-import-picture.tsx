@@ -1,7 +1,8 @@
-'use client'
+"use client"
 
-import { useRef } from 'react'
-import { Button } from './ui/button'
+import { useRef } from "react"
+
+import { Button } from "./ui/button"
 
 export const ButtonImportPicture = (props: any) => {
     const { disable, setSelectedImages } = props
@@ -18,7 +19,7 @@ export const ButtonImportPicture = (props: any) => {
         <>
             <div className="flex gap-3">
                 <Button
-                    variant={'outline'}
+                    variant={"outline"}
                     disabled={disable}
                     onClick={handleButtonClick}
                 >

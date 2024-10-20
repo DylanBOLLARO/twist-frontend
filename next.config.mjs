@@ -1,30 +1,30 @@
 /** @type {import('next').NextConfig} */
 
-const isProd = process.env.NODE_ENV === 'production'
+const isProd = process.env.NODE_ENV === "production"
 
 const nextConfig = {
-    basePath: isProd ? '/twist' : undefined,
-    output: isProd ? 'standalone' : undefined,
-
+    basePath: isProd ? "/twist" : undefined,
+    output: isProd ? "standalone" : undefined,
+    reactStrictMode: true,
     images: {
         remotePatterns: [
             {
-                protocol: 'https',
-                hostname: '**',
-                port: '',
-                pathname: '**',
-                search: '',
+                protocol: "https",
+                hostname: "**",
+                port: "",
+                pathname: "**",
+                search: "",
             },
         ],
     },
     async headers() {
         return [
             {
-                source: '/:path*{/}?',
+                source: "/:path*{/}?",
                 headers: [
                     {
-                        key: 'X-Accel-Buffering',
-                        value: 'no',
+                        key: "X-Accel-Buffering",
+                        value: "no",
                     },
                 ],
             },

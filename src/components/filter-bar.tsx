@@ -5,10 +5,11 @@ import {
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from '@/components/ui/select'
-import { Card } from './ui/card'
-import { Button } from './ui/button'
-import { useSearchContext } from './layout/context-provider/search-context-provider'
+} from "@/components/ui/select"
+
+import { useSearchContext } from "./layout/context-provider/search-context-provider"
+import { Button } from "./ui/button"
+import { Card } from "./ui/card"
 
 export const FilterBar = () => {
     const {
@@ -68,7 +69,7 @@ export const FilterBar = () => {
                         )
                     }
                 )}
-                <Button variant={'outline'} onClick={resetValuesOfSearchFilter}>
+                <Button variant={"outline"} onClick={resetValuesOfSearchFilter}>
                     Reset
                 </Button>
             </div>

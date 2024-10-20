@@ -2,8 +2,8 @@ import {
     nbBedroomsAndnbBathrooms,
     typeOfContract,
     typeOfProperty,
-} from '@/constants'
-import { z } from 'zod'
+} from "@/constants/constants"
+import { z } from "zod"
 
 export type createHomeDetailsFormValues = z.infer<
     typeof createHomeDetailsFormSchema
@@ -13,13 +13,13 @@ export const createHomeDetailsFormSchema = z.object({
     title: z
         .string()
         .min(2, {
-            message: 'Title must be at least 2 characters.',
+            message: "Title must be at least 2 characters.",
         })
         .max(30, {
-            message: 'Title must not be longer than 30 characters.',
+            message: "Title must not be longer than 30 characters.",
         }),
     description: z.string().min(20, {
-        message: 'Description must be at least 20 characters.',
+        message: "Description must be at least 20 characters.",
     }),
     slug: z.string(),
     price: z.string().refine(
@@ -27,16 +27,16 @@ export const createHomeDetailsFormSchema = z.object({
             let n = Number(v)
             return !isNaN(n) && v?.length > 0
         },
-        { message: 'Please enter only a number' }
+        { message: "Please enter only a number" }
     ),
     area: z.string().refine(
         (v) => {
             let n = Number(v)
             return !isNaN(n) && v?.length > 0
         },
-        { message: 'Please enter only a number' }
+        { message: "Please enter only a number" }
     ),
-    images: z.string().array().default(['']),
+    images: z.string().array().default([""]),
     garage: z.boolean(),
     garden: z.boolean(),
     pool: z.boolean(),
@@ -47,7 +47,7 @@ export const createHomeDetailsFormSchema = z.object({
             let n = Number(v)
             return !isNaN(n) && v?.length > 0
         },
-        { message: 'Please enter only a number' }
+        { message: "Please enter only a number" }
     ),
     city: z.string(),
     country: z.string(),

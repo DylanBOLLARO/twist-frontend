@@ -1,7 +1,11 @@
-'use client'
+"use client"
 
-import { useConnectedUserContext } from '@/components/layout/context-provider'
-import { Button } from '@/components/ui/button'
+import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
+import { capitalizeFirstLetter } from "@/utils/utils"
+import axios from "axios"
+
+import { Button } from "@/components/ui/button"
 import {
     Card,
     CardContent,
@@ -9,32 +13,25 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
-} from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { capitalizeFirstLetter } from '@/lib/utils'
-import axios from 'axios'
-import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+} from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useConnectedUserContext } from "@/components/layout/context-provider"
 
-const LIST_LOGIN_INPUT_FIELD = ['email', 'password']
-const LIST_FIRSTNAME_LASTNAME_INPUT_FIELD = ['last_name', 'first_name']
+const LIST_LOGIN_INPUT_FIELD = ["email", "password"]
+const LIST_FIRSTNAME_LASTNAME_INPUT_FIELD = ["last_name", "first_name"]
 
 const InputField = ({ fieldName, setCredentials }: any) => {
     return (
         <div className="space-y-1">
             <Label htmlFor={fieldName}>
-                {capitalizeFirstLetter(fieldName).replace('_', '')}
+                {capitalizeFirstLetter(fieldName).replace("_", "")}
             </Label>
             <Input
                 id={fieldName}
                 onChange={(e) => {
                     setCredentials((prev: any) => {
-                        console.log({
-                            ...prev,
-                            ...{ [fieldName]: e.target.value },
-                        })
                         return {
                             ...prev,
                             ...{ [fieldName]: e.target.value },
@@ -52,7 +49,7 @@ export default function TabsDemo() {
     const { setConnectedUser } = useConnectedUserContext()
 
     const [credentials, setCredentials] = useState<any>({})
-    const [tab, setTab] = useState<string>('login')
+    const [tab, setTab] = useState<string>("login")
     const [listInfo, setListInfo] = useState<Array<String>>([])
 
     useEffect(() => {
@@ -64,21 +61,21 @@ export default function TabsDemo() {
         setListInfo([])
         try {
             let response: any = await axios({
-                method: 'post',
-                url: `${process.env.NEXT_PUBLIC_API + '/auth/local/signin'}`,
+                method: "post",
+                url: `${process.env.NEXT_PUBLIC_API + "/auth/local/signin"}`,
                 data: credentials,
             })
 
             if (
-                Object.hasOwn(response?.data, 'access_token') &&
-                Object.hasOwn(response?.data, 'refresh_token')
+                Object.hasOwn(response?.data, "access_token") &&
+                Object.hasOwn(response?.data, "refresh_token")
             ) {
-                localStorage.setItem('at_nutrit', response?.data?.access_token)
-                localStorage.setItem('rt_nutrit', response?.data?.refresh_token)
+                localStorage.setItem("at_nutrit", response?.data?.access_token)
+                localStorage.setItem("rt_nutrit", response?.data?.refresh_token)
 
                 response = await axios({
-                    method: 'get',
-                    url: `${process.env.NEXT_PUBLIC_API + '/auth/me'}`,
+                    method: "get",
+                    url: `${process.env.NEXT_PUBLIC_API + "/auth/me"}`,
                     data: credentials,
                     headers: {
                         Authorization: `Bearer ${response?.data?.access_token}`,
@@ -86,10 +83,9 @@ export default function TabsDemo() {
                 })
 
                 setConnectedUser(response?.data)
-                router.push('/')
+                router.push("/")
             }
         } catch (error: any) {
-            console.log(error)
             if (error?.response?.status == 400) {
                 setListInfo(error?.response?.data?.message)
             }
@@ -105,17 +101,17 @@ export default function TabsDemo() {
 
         try {
             const response: any = await axios({
-                method: 'post',
-                url: `${process.env.NEXT_PUBLIC_API + '/auth/local/signup'}`,
+                method: "post",
+                url: `${process.env.NEXT_PUBLIC_API + "/auth/local/signup"}`,
                 data: credentials,
             })
             if (
-                Object.hasOwn(response?.data, 'access_token') &&
-                Object.hasOwn(response?.data, 'refresh_token')
+                Object.hasOwn(response?.data, "access_token") &&
+                Object.hasOwn(response?.data, "refresh_token")
             ) {
                 setListInfo([
-                    'Your account has been successfully created!',
-                    'You can now login!',
+                    "Your account has been successfully created!",
+                    "You can now login!",
                 ])
             }
         } catch (error: any) {
@@ -173,8 +169,7 @@ export default function TabsDemo() {
                                 ))}
                             </div>
                             <Button
-                                size={'lg'}
-                                className="font-bold"
+                                size={"lg"}
                                 onClick={() => {
                                     signin()
                                 }}
@@ -206,7 +201,7 @@ export default function TabsDemo() {
                                     }
                                 )}
                             </div>
-                            {[...LIST_LOGIN_INPUT_FIELD, 'confirm'].map(
+                            {[...LIST_LOGIN_INPUT_FIELD, "confirm"].map(
                                 (field) => {
                                     return (
                                         <InputField
@@ -236,8 +231,7 @@ export default function TabsDemo() {
                                     credentials?.password !==
                                     credentials?.confirm
                                 }
-                                size={'lg'}
-                                className="font-bold"
+                                size={"lg"}
                                 onClick={() => {
                                     register(credentials)
                                 }}

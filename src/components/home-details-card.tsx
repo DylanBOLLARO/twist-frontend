@@ -1,8 +1,8 @@
-'use client'
+"use client"
 
-import { imageLoader } from '@/lib/utils'
-import { X } from 'lucide-react'
-import Image from 'next/image'
+import Image from "next/image"
+import { imageLoader } from "@/utils/utils"
+import { X } from "lucide-react"
 
 export const HomeDetailsCard = (props: any) => {
     const { emptyImage, EmptyImageComponent, removeFromArray, src } = props
@@ -29,7 +29,7 @@ export const HomeDetailsCard = (props: any) => {
                 width={320}
                 height={320}
                 className={
-                    'object-cover aspect-video brightness-90 transition will-change-auto group-hover:brightness-110 '
+                    "object-cover aspect-video brightness-90 transition will-change-auto group-hover:brightness-110 "
                 }
             />
         </div>

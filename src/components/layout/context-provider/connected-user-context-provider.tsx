@@ -1,6 +1,6 @@
-'use client'
+"use client"
 
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useState } from "react"
 
 const ConnectedUserContext = createContext<any>(undefined)
 
@@ -20,7 +20,7 @@ export const useConnectedUserContext = () => {
     const connectedUserContext = useContext(ConnectedUserContext)
     if (connectedUserContext === undefined) {
         throw new Error(
-            'useConnectedUserContext must be inside a ConnectedUserContextProvider'
+            "useConnectedUserContext must be inside a ConnectedUserContextProvider"
         )
     }
     return connectedUserContext

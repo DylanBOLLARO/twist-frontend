@@ -1,16 +1,16 @@
 services:
-  twist-frontend:
-    container_name: twist-frontend
-    build:
-      context: .
-      args:
-        NEXT_PUBLIC_API: ${NEXT_PUBLIC_API}
-    restart: always
-    ports:
-      - 43000:43000
-    networks:
-      - nginx_default
+    twist-frontend:
+        container_name: twist-frontend
+        build:
+            context: .
+            args:
+                NEXT_PUBLIC_API: ${NEXT_PUBLIC_API}
+        restart: always
+        ports:
+            - 43000:43000
+        networks:
+            - nginx_default
 networks:
-  nginx_default:
-    name: nginx_default
-    external: true
+    nginx_default:
+        name: nginx_default
+        external: true

@@ -1,8 +1,9 @@
-'use client'
+"use client"
 
-import { useConnectedUserContext } from '@/components/layout/context-provider'
-import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect } from "react"
+import { useRouter } from "next/navigation"
+
+import { useConnectedUserContext } from "@/components/layout/context-provider"
 
 export default function DashboardLayout({
     children,
@@ -10,13 +11,12 @@ export default function DashboardLayout({
     children: React.ReactNode
 }) {
     const { connectedUser } = useConnectedUserContext()
-
     const router = useRouter()
 
     useEffect(() => {
         const isConnectedUser = async () => {
             if (!(await connectedUser)) {
-                router.push('/auth')
+                router.push("/auth")
             }
         }
         isConnectedUser()

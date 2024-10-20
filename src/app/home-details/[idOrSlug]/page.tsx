@@ -1,16 +1,16 @@
-'use client'
+"use client"
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Badge } from '@/components/ui/badge'
-import { Separator } from '@/components/ui/separator'
-import { capitalizeFirstLetter, imageLoader } from '@/lib/utils'
-import axios from 'axios'
-import Image from 'next/image'
-import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import { format } from 'date-fns'
+import { useEffect, useState } from "react"
+import Image from "next/image"
+import Link from "next/link"
+import { capitalizeFirstLetter, imageLoader } from "@/utils/utils"
+import axios from "axios"
+import { format } from "date-fns"
 
-import { Button } from '@/components/ui/button'
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Calendar } from "@/components/ui/calendar"
 import {
     Card,
     CardContent,
@@ -18,17 +18,17 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
-} from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+} from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from '@/components/ui/select'
-import { Calendar } from '@/components/ui/calendar'
+} from "@/components/ui/select"
+import { Separator } from "@/components/ui/separator"
 
 export default function Page({ params }: { params: { idOrSlug: string } }) {
     const [fetchData, setFetchData] = useState<any>({})
@@ -49,18 +49,18 @@ export default function Page({ params }: { params: { idOrSlug: string } }) {
         getUser()
     }, [])
 
-    const TAG_LIST = ['bedrooms', 'bathrooms', 'garage', 'garden', 'pool']
+    const TAG_LIST = ["bedrooms", "bathrooms", "garage", "garden", "pool"]
 
     return (
         <div className="flex flex-col gap-5 mb-20">
             <div className="flex flex-row gap-3 items-center justify-between">
-                <h2 className="scroll-m-20 text-5xl font-semibold tracking-tight first:mt-0 text-start py-5">
+                <h2 className="scroll-m-20 text-5xl tracking-tight first:mt-0 text-start py-5">
                     {fetchData?.title}
                 </h2>
 
                 <div className="flex flex-row gap-3">
-                    <Button size={'lg'}>Share</Button>
-                    <Button size={'lg'} variant={'outline'}>
+                    <Button size={"lg"}>Share</Button>
+                    <Button size={"lg"} variant={"outline"}>
                         Save
                     </Button>
                 </div>
@@ -69,7 +69,7 @@ export default function Page({ params }: { params: { idOrSlug: string } }) {
                 {fetchData?.images?.sort()?.map((src: string) => (
                     <Link
                         key={`image_${src}`}
-                        href={'#'}
+                        href={"#"}
                         shallow
                         className="after:content group relative block w-full after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
                     >
@@ -110,9 +110,16 @@ export default function Page({ params }: { params: { idOrSlug: string } }) {
 
                     <div className="flex flex-col">
                         <p>
-                            {`Host : ${capitalizeFirstLetter(fetchData?.user?.lastname)} ${capitalizeFirstLetter(fetchData?.user?.firstname)}`}
+                            {`Host : ${capitalizeFirstLetter(
+                                fetchData?.user?.lastname
+                            )} ${capitalizeFirstLetter(
+                                fetchData?.user?.firstname
+                            )}`}
                         </p>
-                        <p>{`Member since : ${format(fetchData?.user?.createdAt, 'dd.MM.yyyy')} `}</p>
+                        <p>{`Member since : ${format(
+                            fetchData?.user?.createdAt,
+                            "dd.MM.yyyy"
+                        )} `}</p>
                     </div>
                 </Card>
             )}
