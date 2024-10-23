@@ -9,7 +9,7 @@ import {
     typeOfContract,
     typeOfProperty,
 } from "@/constants/constants"
-import { getHomeDetails } from "@/utils"
+import { getHomeDetails, removeHomeDetails } from "@/utils"
 import { capitalizeFirstLetter } from "@/utils/utils"
 import {
     createHomeDetailsFormSchema,
@@ -563,16 +563,44 @@ export default function Page({ params }: { params: { idOrSlug: string } }) {
                         </div>
                     </div>
 
-                    <Button
-                        size={"lg"}
-                        className="font-bold"
-                        onClick={() => {
-                            form.setValue("images", [""])
-                            onSubmit()
-                        }}
-                    >
-                        Publish
-                    </Button>
+                    <div className="flex gap-3">
+                        <Button
+                            size={"lg"}
+                            className="font-bold"
+                            onClick={(e) => {
+                                e.preventDefault()
+                                form.setValue("images", [""])
+                                onSubmit()
+                            }}
+                        >
+                            Update
+                        </Button>
+                        <Button
+                            size={"lg"}
+                            className="font-bold"
+                            variant={"destructive"}
+                            onClick={async (e) => {
+                                e.preventDefault()
+                                const at_nutrit =
+                                    "at_nutrit" in localStorage
+                                        ? localStorage.getItem("at_nutrit")
+                                        : undefined
+
+                                const response = await removeHomeDetails(
+                                    params.idOrSlug,
+                                    at_nutrit
+                                )
+
+                                if (response.status == 200) {
+                                    router.push(`/`)
+                                }
+
+                                getHomeDetailsFromContext()
+                            }}
+                        >
+                            Remove
+                        </Button>
+                    </div>
                 </form>
             </Form>
         </div>
