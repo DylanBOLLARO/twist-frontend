@@ -1,22 +1,23 @@
-"use client";
+"use client"
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { capitalizeFirstLetter } from "@/utils/utils";
-import axios from "axios";
+import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
+import { capitalizeFirstLetter } from "@/utils/utils"
+import axios from "axios"
 
-
-
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useConnectedUserContext } from "@/components/layout/context-provider";
-
-
-
-
+import { Button } from "@/components/ui/button"
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useConnectedUserContext } from "@/components/layout/context-provider"
 
 const LIST_LOGIN_INPUT_FIELD = ["email", "password"]
 const LIST_FIRSTNAME_LASTNAME_INPUT_FIELD = ["lastname", "firstname"]

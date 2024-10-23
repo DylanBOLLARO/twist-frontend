@@ -20,9 +20,7 @@ export const CardHomeDetails = ({ homeDetails }: any) => {
                 <Image
                     loader={imageLoader}
                     key={`image_${homeDetails?.slug}`}
-                    src={`${process.env.NEXT_PUBLIC_API}/uploads_pictures/${
-                        homeDetails?.images?.sort()?.[0]
-                    }`}
+                    src={`${process.env.NEXT_PUBLIC_API}/uploads_pictures/${homeDetails?.images?.[0]}`}
                     alt={homeDetails?.title}
                     width={320}
                     height={320}

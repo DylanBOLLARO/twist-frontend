@@ -73,7 +73,10 @@ const Container: React.FC<ContainerProps> = ({ children }) => {
                             const at_nutrit: any = response?.data?.access_token
                             response = await getConnectedUser(at_nutrit)
                             if (response?.status == 200) {
-                                setConnectedUser(response?.data)
+                                setConnectedUser({
+                                    ...response?.data,
+                                    at: at_nutrit,
+                                })
                             } else {
                                 localStorage.removeItem("at_nutrit")
                                 localStorage.removeItem("rt_nutrit")

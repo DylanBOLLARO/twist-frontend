@@ -5,8 +5,16 @@ import { imageLoader } from "@/utils/utils"
 import { X } from "lucide-react"
 
 export const HomeDetailsCard = (props: any) => {
-    const { emptyImage, EmptyImageComponent, removeFromArray, src } = props
+    const { emptyImage, EmptyImageComponent, removeFromArray, src, local } =
+        props
 
+    const getSrcFromFileOrPath = (src: File | string) => {
+        if (typeof src === "string") {
+            return `${process.env.NEXT_PUBLIC_API}/uploads_pictures/${src}`
+        } else {
+            return URL?.createObjectURL(src)
+        }
+    }
     if (emptyImage) {
         return (
             <div className="h-[180px] w-[320px] flex justify-center items-center">
@@ -24,7 +32,7 @@ export const HomeDetailsCard = (props: any) => {
             <Image
                 loader={imageLoader}
                 key={`image_upload_${src}`}
-                src={URL.createObjectURL(src)}
+                src={getSrcFromFileOrPath(src)}
                 alt="Prévisualisation"
                 width={320}
                 height={320}

@@ -5,7 +5,7 @@ import { useRef } from "react"
 import { Button } from "./ui/button"
 
 export const ButtonImportPicture = (props: any) => {
-    const { disable, setSelectedImages } = props
+    const { disable, setSelectedImages, selectedImages } = props
     const inputRef = useRef<any>(null)
 
     function handleButtonClick(e: React.MouseEvent<HTMLButtonElement>) {
@@ -32,7 +32,11 @@ export const ButtonImportPicture = (props: any) => {
                 hidden
                 onChange={(e: any) => {
                     const file = e.target.files[0]
-                    setSelectedImages((prev: any) => [...prev, file])
+                    setSelectedImages((prev: any) => {
+                        if (!(selectedImages.length >= 3)) {
+                            return [...prev, file]
+                        }
+                    })
                 }}
             />
         </>

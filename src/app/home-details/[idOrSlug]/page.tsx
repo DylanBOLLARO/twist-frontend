@@ -1,9 +1,10 @@
-"use client";
+"use client"
 
-import { useEffect, useState } from "react";
-import Image from "next/image";
+import { useEffect, useState } from "react"
+import Image from "next/image"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { typeOfContract, typeOfProperty } from "@/constants"
+import { getHomeDetails } from "@/utils"
 import { capitalizeFirstLetter, imageLoader } from "@/utils/utils"
 import axios from "axios"
 import { format } from "date-fns"
@@ -16,20 +17,20 @@ import { Separator } from "@/components/ui/separator"
 import { useConnectedUserContext } from "@/components/layout/context-provider"
 
 export default function Page({ params }: { params: { idOrSlug: string } }) {
-    async function getHomeDetails() {
-        try {
-            const response: any = await axios({
-                method: "get",
-                url: `${process.env.NEXT_PUBLIC_API}/home-details/${params.idOrSlug}`,
-            })
-
-            setFetchData(response?.data)
-        } catch (error) {
-            console.error(error)
+    const [fetchData, setFetchData] = useState<any>(null)
+    useEffect(() => {
+        const fetchDataAsync = async () => {
+            try {
+                const data = await getHomeDetails(params.idOrSlug)
+                setFetchData(data)
+            } catch (error) {
+                console.error("Error fetching data:", error)
+            }
         }
-    }
 
-    const [fetchData, setFetchData] = useState<any>(getHomeDetails())
+        fetchDataAsync()
+    }, [params?.idOrSlug])
+
     const { listOfMyIdOrSlug } = useConnectedUserContext()
 
     const TAG_LIST = ["bedrooms", "bathrooms", "garage", "garden", "pool"]
@@ -38,7 +39,11 @@ export default function Page({ params }: { params: { idOrSlug: string } }) {
         <div className="flex flex-col gap-5 mb-20">
             <div className="flex flex-row gap-3 items-center justify-between">
                 <h2 className="scroll-m-20 text-5xl tracking-tight first:mt-0 text-start py-5">
-                    {fetchData?.title}
+                    {capitalizeFirstLetter(
+                        `${typeOfProperty[fetchData?.typeOfProperty]} ${
+                            typeOfContract[fetchData?.typeOfContract]
+                        } of ${fetchData?.area} m²`
+                    )}
                 </h2>
 
                 <div className="flex flex-row gap-3">
@@ -59,7 +64,7 @@ export default function Page({ params }: { params: { idOrSlug: string } }) {
                 </div>
             </div>
             <div className="columns-3 rounded">
-                {fetchData?.images?.sort()?.map((src: string) => (
+                {fetchData?.images?.map((src: string) => (
                     <Link
                         key={`image_${src}`}
                         href={"#"}
@@ -77,6 +82,7 @@ export default function Page({ params }: { params: { idOrSlug: string } }) {
                     </Link>
                 ))}
             </div>
+
             <Separator className="bg-primary/50" />
             <div className="flex flex-wrap gap-3">
                 {TAG_LIST?.map((item) => {
