@@ -77,7 +77,7 @@ export default function Page({ params }: { params: { idOrSlug: string } }) {
                         <Image
                             alt=""
                             className="brightness-90 rounded transition will-change-auto group-hover:brightness-110 aspect-video object-cover"
-                            src={`http://localhost:55000/uploads_pictures/${src}`}
+                            src={`${process.env.NEXT_PUBLIC_API}/uploads_pictures/${src}`}
                             width={720}
                             loader={imageLoader}
                             height={480}

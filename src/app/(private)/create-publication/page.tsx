@@ -81,10 +81,19 @@ export default function SettingsProfilePage() {
         form.setValue("slug", form.getValues()?.title)
         form.setValue("userId", connectedUser.id)
 
+        const at_nutrit =
+        "at_nutrit" in localStorage
+            ? localStorage.getItem("at_nutrit")
+            : undefined
+
+            
         let response: any = await axios({
             method: "post",
-            url: `${process.env.NEXT_PUBLIC_API + "/home-details"}`,
+            url: `${process.env.NEXT_PUBLIC_API}/home-details`,
             data: form.getValues(),
+            headers: {
+                Authorization: `Bearer ${at_nutrit}`,
+            },
         })
         if (response.status == 201) {
             router.push("/")
