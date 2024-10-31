@@ -7,6 +7,7 @@ import { useConnectedUserContext } from "@/components/layout/context-provider"
 import { NoDataAvailable } from "@/components/no-data-available"
 
 export default function Page() {
+    // TODO refresh HomeDetails data of user on load of page.
     const { connectedUser } = useConnectedUserContext()
     const { homeDetails }: { homeDetails: Array<any> } = connectedUser
         ? connectedUser

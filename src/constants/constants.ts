@@ -30,3 +30,10 @@ export const noDataAvailable = {
         "No data available to display at the moment. Please try again later or contact support if the issue persists.",
 }
 
+export const BADGES_LIST = [
+    { key: "bedrooms", icon: "BedDouble" },
+    { key: "bathrooms", icon: "Bath" },
+    { key: "garage" },
+    { key: "garden" },
+    { key: "pool" },
+]
