@@ -21,8 +21,8 @@ export const FilterBar = () => {
     } = useSearchContext()
 
     return (
-        <Card className="flex gap-3 p-3 justify-between items-center">
-            <div className="flex gap-3">
+        <Card className="flex  gap-3 p-3 justify-between items-center">
+            <div className="flex flex-col sm:flex-row mx-auto  sm:mx-0 gap-3">
                 {listOfSelectFilter?.map(
                     ([keyData, listOfKeyDataValue]: any) => {
                         const [[propertyKey, prettyStringOfKey]] = keyData

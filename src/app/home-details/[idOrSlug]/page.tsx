@@ -66,13 +66,13 @@ export default function Page({ params }: { params: { idOrSlug: string } }) {
                     </Button> */}
                 </div>
             </div>
-            <div className="columns-3 rounded">
+            <div className="sm:columns-3 rounded columns-1">
                 {homeDetails?.images?.map((src: string) => (
                     <Link
                         key={`image_${src}`}
                         href={"#"}
                         shallow
-                        className="after:content group relative block w-full after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
+                        className="after:content group relative block w-full after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight p-2 sm:p-0"
                     >
                         <Image
                             alt=""

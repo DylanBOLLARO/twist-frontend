@@ -6,7 +6,7 @@ export const ListCardHomeDetails = ({
     listOfHomeDetails: Array<any>
 }) => {
     return (
-        <div className="grid grid-cols-4 gap-5">
+        <div className="grid xl:grid-cols-4 gap-5 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1">
             {listOfHomeDetails?.map((homeDetails: any) => {
                 return (
                     <CardHomeDetails

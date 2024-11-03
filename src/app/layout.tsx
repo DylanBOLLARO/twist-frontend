@@ -26,10 +26,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <body className={`antialiased font-montserratMedium`}>
                 <Providers>
                     <Header />
-                    <div className="flex flex-col w-full items-center">
-                        <div className="flex flex-col w-full max-w-7xl py-5">
-                            {children}
-                        </div>
+                    <div className="container mx-auto py-3 px-1">
+                        {children}
                     </div>
                 </Providers>
             </body>

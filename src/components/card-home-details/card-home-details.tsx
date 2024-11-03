@@ -22,8 +22,8 @@ export const CardHomeDetails = ({ homeDetails }: any) => {
                     key={`image_${homeDetails?.slug}`}
                     src={`${process.env.NEXT_PUBLIC_API}/uploads_pictures/${homeDetails?.images?.[0]}`}
                     alt={homeDetails?.title}
-                    width={320}
-                    height={320}
+                    width={640}
+                    height={640}
                     className={
                         "object-cover aspect-video brightness-90 transition will-change-auto group-hover:brightness-110"
                     }
